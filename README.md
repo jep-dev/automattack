@@ -1,0 +1,2 @@
+# automattack
+An autobattler
