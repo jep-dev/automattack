@@ -5,25 +5,38 @@ __version__ = "0.0.1"
 __license__ = "GNU General Public License 3.0"
 
 class Stats:
-    dexterity = 1
     health = 1
-    intelligence = 1
-    strength = 1
     def __init__(self, dexterity, health, intelligence, strength):
         self.dexterity = dexterity
         self.health = health
         self.intelligence = intelligence
         self.strength = strength
 
-class Char(Stats):
+class Animate(Stats):
+    dexterity = 1
+    intelligence = 1
+    strength = 1
+    def __init__(self, dexterity, health, intelligence, strength):
+        super().__init__(self, health)
+        self.dexterity = dexterity
+        self.intelligence = intelligence
+        self.strength = strength
+
+class Inanimate(Stats):
+    weight = 1
+    def __init__(self, health, weight):
+        super().__init__(self, health)
+        self.weight = weight
+
+class Char(Animate):
     name = "Greg"
     species = "gregoid"
     def __init__(self, name, species, dexterity, health, intelligence, strength):
         super().__init__(self, dexterity, health, intelligence, strength)
         self.name = name
         self.species = species
-    def print_char(self):
-        print(self.name, "the", self.species)
+    def __str__(self):
+        return f"{self.name} the {self.species}"
 
 class Human(Char):
     def __init__(self, name):
@@ -36,4 +49,5 @@ class Orc(Char):
 class Elf(Char):
     def __init__(self, name):
         super().__init__(self, name, "elf", 10, 8, 14, 8)
+
 
