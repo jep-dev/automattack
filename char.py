@@ -6,20 +6,22 @@ __license__ = "GNU General Public License 3.0"
 
 class Stats:
     health = 1
-    def __init__(self, dexterity, health, intelligence, strength):
-        self.dexterity = dexterity
+    def __init__(self, health):
         self.health = health
-        self.intelligence = intelligence
-        self.strength = strength
 
 class Animate(Stats):
+    armor = 1
     dexterity = 1
     intelligence = 1
     strength = 1
-    def __init__(self, dexterity, health, intelligence, strength):
+    mresistance = 1
+    def __init__(self, armor, dexterity,
+            health, intelligence, mresistance, strength):
         super().__init__(self, health)
+        self.armor = armor
         self.dexterity = dexterity
         self.intelligence = intelligence
+        self.mresistance = mresistance
         self.strength = strength
 
 class Inanimate(Stats):
@@ -31,8 +33,10 @@ class Inanimate(Stats):
 class Char(Animate):
     name = "Greg"
     species = "gregoid"
-    def __init__(self, name, species, dexterity, health, intelligence, strength):
-        super().__init__(self, dexterity, health, intelligence, strength)
+    def __init__(self, name, species, armor, dexterity,
+            health, intelligence, mresistance, strength):
+        super().__init__(self, armor, dexterity, health,
+                intelligence, mresistance, strength)
         self.name = name
         self.species = species
     def __str__(self):
@@ -40,14 +44,15 @@ class Char(Animate):
 
 class Human(Char):
     def __init__(self, name):
-        super().__init__(self, name, "human", 10, 10, 10, 10)
+        super().__init__(self, name, "human",
+                10, 10, 10, 10, 10)
 
 class Orc(Char):
     def __init__(self, name):
-        super().__init__(self, name, "orc", 10, 8, 8, 14)
+        super().__init__(self, name, "orc",
+                10, 10, 8, 8, 14)
 
 class Elf(Char):
     def __init__(self, name):
-        super().__init__(self, name, "elf", 10, 8, 14, 8)
-
-
+        super().__init__(self, name, "elf",
+                10, 10, 8, 14, 8)
