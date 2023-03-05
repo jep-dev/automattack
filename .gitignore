@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Editor swap files
+.*.sw[a-z]
+.sw[a-z]
