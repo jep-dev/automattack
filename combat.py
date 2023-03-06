@@ -49,14 +49,21 @@ def dead(c):
     return c.health == 0
 
 def damage(src, dest):
+    h = dest.health
+    if(h <= 0):
+        die(dest)
+        return 0
+
     s = src.strength
-    if(s <= 0):
-        return False
-    h = dest.health - s
+    d = src.dexterity
+    # s / 20.0 * d / 20.0
+    dmg = 5 * s * d / 400.0
+
+    h = h - dmg
     if(h <= 0):
         die(dest)
     else:
         dest.health = h
-    return True
+    return dmg
 
 
