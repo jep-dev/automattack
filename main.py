@@ -13,32 +13,41 @@ def main():
 
     k = -1
     while(True):
-        i, j = initiator(l, r)
-        if(i == -1):
-            k = j
+        init = initiator(l, r)
+        if(len(init) != 2):
             break
-        if(i == 0):
-            z = randint(0, len(r)-1)
-            d = damage(l[j], r[z])
+        d = 0
+        z = 0
+        side, item = init
+        if(side == 0):
+            if(item.target == None or dead(item.target)):
+                z = randint(0, len(r)-1)
+                item.target = r[z]
+                d = damage(item, r[z])
             if(d > 0):
-                print(f'{str(l[j])} hit {str(r[z])} ({str(d)})')
+                print(f'{str(item)} hit',
+                        f'{str(r[z])} for {str(d)}')
+                if(dead(r[z])):
+                    print(f'{str(r[z])} is dead')
             else:
-                print(f'{str(l[j])} missed {str(r[d])}')
-            if(dead(r[z])):
-                print(f'{str(r[z])} is dead')
-        elif(i == 1):
-            z = randint(0, len(l)-1)
-            d = damage(r[j], l[z])
+                print(f'{str(item)} missed {str(r[z])}')
+        elif(side == 1):
+            if(item.target == None or dead(item.target)):
+                z = randint(0, len(l)-1)
+                item.target = l[z]
+            d = damage(item, item.target)
             if(d > 0):
-                print(f'{str(r[j])} hit {str(l[z])} ({str(d)})')
+                print(f'{str(item)} hit {str(l[z])} ({str(d)})')
+                if(dead(l[z])):
+                    print(f'{str(l[z])} is dead')
             else:
-                print(f'{str(r[j])} missed {str(l[z])}')
-            if(dead(l[z])):
-                print(f'{str(l[z])} is dead')
+                print(f'{str(item)} missed {str(l[z])}')
         else:
             break
+        cleanup(l, r)
         sleep(1)
-    print(f'Done (k = {k})')
+
+    print(f'Done')
 
     return
 
