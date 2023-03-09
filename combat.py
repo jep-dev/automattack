@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
+from math import sqrt
+from random import random, randint
+
 from util import *
 from char import *
-from random import random, randint
 
 __author__ = "John Petersen"
 __version__ = "0.0.1"
@@ -20,8 +22,7 @@ def dead(c):
     s = c.stats
     return (s.health <= 0) or (s.intelligence <= 0)
 def alive(c):
-    s = c.stats
-    return (s.health > 0) and (s.intelligence > 0)
+    return not dead(c)
 
 def retarget(src, dest):
     n = 0
@@ -122,35 +123,35 @@ def damage(src):
     s0 = clamp(s.strength)
 
     p1 = .75
-    #x = d.armor/20.
-    #a1 = 20*sqrt((x/20.)*(x/20.+2)/3)
-    a1 = clamp(d.armor)
+    x = d.armor/20.
+    a1 = 20*sqrt(x*(x+2)/3)
+    #a1 = clamp(d.armor)
     d1 = clamp(d.dexterity)
 
     l = d0 * p0 + i0 * (1 - p0)
     r = a1 * p1 + d1 * (1 - p1)
 
-    print(f'DEX = {d0}, INV = {i0},',
-            f'{p0}*DEX + {1-p0}*INV = {l}')
-    print(f'ARM = {a1}, DEX = {d1},',
-            f'{p1}*ARM + {1-p1}*DEX = {r}')
+    print(f'DEX = {d0:f}, INV = {i0:f},',
+            f'{p0}*DEX + {1-p0}*INV = {l:f}')
+    print(f'ARM = {x*20} -> {a1:f}, DEX = {d1}')
+    print(f'  {p1}*{a1} + {1-p1}*{d1} = {r:f}')
 
     p0 = l # * .8
     p1 = random() * (l + r)
     if(l < p1):
-        #s.initiative = src.base_stats.initiative
-        #print(f'Reset {str(src)}\'s initiative')
+        s.initiative = src.base_stats.initiative
+        print(f'  Reset {str(src)}\'s initiative')
         return 0
     else:
         s.initiative = .9 * s.initiative
-        print(f'Reduced {src}\'s INV to {s.initiative}')
+        print(f'  Reduced {src}\'s INV to {s.initiative}')
         pass
 
     #dmg = .25 * s0 * d0
     dmg = s0 * d0 / 20.0
     #print(f'dmg = {str(s0)}*{str(d0)}/20 = {str(dmg)}')
 
-    f'dmg = {s0}*{d0}/20 = {dmg}'
+    print(f'dmg = {s0}*{d0}/20 = {dmg}')
 
     if(h1 <= dmg):
         die(dest)
