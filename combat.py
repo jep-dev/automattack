@@ -12,10 +12,10 @@ __license__ = "GNU General Public License 3.0"
 
 def die(c):
     s = c.stats
-    s.health = 0
-    s.initiative = 0
-    s.intelligence = 0
-    s.strength = 0
+    s.health = 0.0
+    s.initiative = 0.0
+    s.intelligence = 0.0
+    s.strength = 0.0
     c.target = None
 
 def dead(c):
@@ -131,27 +131,30 @@ def damage(src):
     l = d0 * p0 + i0 * (1 - p0)
     r = a1 * p1 + d1 * (1 - p1)
 
-    print(f'DEX = {d0:f}, INV = {i0:f},',
-            f'{p0}*DEX + {1-p0}*INV = {l:f}')
-    print(f'ARM = {x*20} -> {a1:f}, DEX = {d1}')
-    print(f'  {p1}*{a1} + {1-p1}*{d1} = {r:f}')
+    print(f'DEX = {d0:.2f}, INV = {i0:.2f},',
+            f'{p0}*DEX + {1-p0}*INV = {l:.2f}')
+    print(f'ARM = {x*20} -> {a1:.2f}, DEX = {d1:.2f}')
+    print(f'  {p1:.2f}*{a1:.2f}',
+        f'{1-p1:.2f}*{d1:.2f} = {r:.2f}')
 
-    p0 = l # * .8
-    p1 = random() * (l + r)
-    if(p0 < p1):
-        s.initiative = src.base_stats.initiative
-        print(f'  Reset {str(src)}\'s initiative')
-        return 0
-    else:
-        s.initiative = .9 * s.initiative
-        print(f'  Reduced {src}\'s INV to {s.initiative}')
-        pass
+    p2 = random()
+    p3 = p2 * (l + r)
+    print(f'  {l:.2f} vs. (random()={p2:.2%})',
+            f'* ({l:.2f}+{r:.2f}) = {p3:.2f}')
 
     #dmg = .25 * s0 * d0
     dmg = s0 * d0 / 20.0
     #print(f'dmg = {str(s0)}*{str(d0)}/20 = {str(dmg)}')
 
-    print(f'dmg = {s0}*{d0}/20 = {dmg}')
+    print(f'  dmg = {s0:.2f}*{d0:.2f}/20 = {dmg:.2f}')
+
+    if(l < p2):
+        s.initiative = src.base_stats.initiative
+        print(f'    Reset {src}\'s initiative')
+        return 0
+    else:
+        s.initiative = .9 * s.initiative
+        print(f'    Reduced {src}\'s INV to {s.initiative:.2f}')
 
     if(h1 <= dmg):
         die(dest)

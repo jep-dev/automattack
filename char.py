@@ -15,11 +15,14 @@ class Stats:
     mresistance = 0
     strength = 0
     def __str__(self):
-        return (f'(ARM, DEX, HP, INV, INT, MR, STR) = '
-                f'({self.armor}, {self.dexterity}, '
-                f'{self.health}, {self.initiative}, '
-                f'{self.intelligence}, {self.mresistance}, '
-                f'{self.strength})')
+        return (f'(ARM, DEX, HP, INV, INT, MR, STR) = ' \
+                f'({self.armor:f.2}, ' \
+                f'{self.dexterity:.2f}, ' \
+                f'{self.health:.2f}, ' \
+                f'{self.initiative:.2f}, ' \
+                f'{self.intelligence:.2f}, ' \
+                f'{self.mresistance:.2f}, ' \
+                f'{self.strength:.2f})')
     def __init__(self, armor, dexterity, health, initiative,
             intelligence, mresistance, strength):
         self.armor = armor
@@ -50,18 +53,15 @@ class Char:
 class Human(Char):
     def __init__(self, name):
         super().__init__(name, "human", Stats(
-            4, 10, 10, 10, 10, 10, 10))
-        # .2, .5, .5, .5, .5, .5, .5))
+            4., 10., 10., 10., 10., 10., 10.))
 
 class Orc(Char):
     def __init__(self, name):
         super().__init__(name, "orc", Stats(
-            5, 10, 10, 11, 8, 8, 12))
-        # .25, .5, .5, .55, .4, .4, .6))
+            5., 10., 10., 11., 8., 8., 12.))
 
 class Elf(Char):
     def __init__(self, name):
         super().__init__(name, "elf", Stats(
-                4, 10, 10, 9, 10, 12, 9))
-        # .2, .5, .5, .45, .5, .6, .45))
+            4., 10., 10., 9., 10., 12., 9.))
 
