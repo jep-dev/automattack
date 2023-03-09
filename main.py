@@ -37,14 +37,14 @@ def main():
             if(pre == None or dead(pre)):
                 if(not retarget(item, r)):
                     break
+            lz = l[z]
             d = damage(item)
             if(d > 0):
-                print(f'{str(item)} hit',
-                        f'{str(l[z])} for {str(d)}')
-                if(dead(l[z])):
-                    print(f'{str(l[z])} is dead')
+                print(f'{str(item)} did {str(d)} damage')
+                if(dead(lz)):
+                    print(f'{str(lz)} is dead')
             else:
-                print(f'{str(item)} missed {str(l[z])}')
+                print(f'{str(item)} missed')
         else:
             break
         cleanup(l, r)
