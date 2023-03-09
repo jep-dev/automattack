@@ -8,8 +8,8 @@ __version__ = "0.0.1"
 __license__ = "GNU General Public License 3.0"
 
 def main():
-    l = [Human("Finn")]
-    r = [Elf("Shelf"), Orc("Dorc")]
+    l = [Human("Finn"), Human("Lynn"), Human("Flynn")]
+    r = [Orc("Borc"), Orc("Dorc"), Orc("Morc")]
 
     k = -1
     while(True):
@@ -18,12 +18,13 @@ def main():
             break
         d = 0
         z = 0
-        side, item = init
-        if(side == 0):
-            if(item.target == None or dead(item.target)):
-                z = randint(0, len(r)-1)
-                item.target = r[z]
-                d = damage(item, r[z])
+        section, item = init
+        if(section == 0):
+            pre = item.target
+            if(pre == None or dead(pre)):
+                if(not retarget(item, r)):
+                    break
+            d = damage(item)
             if(d > 0):
                 print(f'{str(item)} hit',
                         f'{str(r[z])} for {str(d)}')
@@ -31,13 +32,15 @@ def main():
                     print(f'{str(r[z])} is dead')
             else:
                 print(f'{str(item)} missed {str(r[z])}')
-        elif(side == 1):
-            if(item.target == None or dead(item.target)):
-                z = randint(0, len(l)-1)
-                item.target = l[z]
-            d = damage(item, item.target)
+        elif(section == 1):
+            pre = item.target
+            if(pre == None or dead(pre)):
+                if(not retarget(item, r)):
+                    break
+            d = damage(item)
             if(d > 0):
-                print(f'{str(item)} hit {str(l[z])} ({str(d)})')
+                print(f'{str(item)} hit',
+                        f'{str(l[z])} for {str(d)}')
                 if(dead(l[z])):
                     print(f'{str(l[z])} is dead')
             else:
