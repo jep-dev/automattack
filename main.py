@@ -24,34 +24,35 @@ def main():
             if(pre == None or dead(pre)):
                 if(not retarget(item, r)):
                     break
+            post = r[z]
             d = damage(item)
             if(d > 0):
                 print(f'{str(item)} hit',
-                        f'{str(r[z])} for {str(d)}')
+                        f'{str(post)} for {str(d)}')
                 if(dead(r[z])):
-                    print(f'{str(r[z])} is dead')
+                    print(f'{str(post)} is dead')
             else:
-                print(f'{str(item)} missed {str(r[z])}')
+                print(f'{str(item)} missed {str(post)}')
         elif(section == 1):
             pre = item.target
             if(pre == None or dead(pre)):
                 if(not retarget(item, r)):
                     break
-            lz = l[z]
+            post = item.target
             d = damage(item)
             if(d > 0):
-                print(f'{str(item)} did {str(d)} damage')
-                if(dead(lz)):
-                    print(f'{str(lz)} is dead')
+                print(f'{str(item)} hit',
+                        f'{str(post)} for {str(d)}')
+                if(dead(post)):
+                    print(f'{str(post)} is dead')
             else:
-                print(f'{str(item)} missed')
+                print(f'{str(item)} missed {str(post)}')
         else:
             break
         cleanup(l, r)
-        sleep(1)
+        sleep(3)
 
-    print(f'Done')
-
+    input("Done. ")
     return
 
 if __name__ == "__main__":

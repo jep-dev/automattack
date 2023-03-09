@@ -138,7 +138,7 @@ def damage(src):
 
     p0 = l # * .8
     p1 = random() * (l + r)
-    if(l < p1):
+    if(p0 < p1):
         s.initiative = src.base_stats.initiative
         print(f'  Reset {str(src)}\'s initiative')
         return 0
