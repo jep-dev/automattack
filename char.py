@@ -14,6 +14,12 @@ class Stats:
     intelligence = 0
     mresistance = 0
     strength = 0
+    def __str__(self):
+        return (f'(ARM, DEX, HP, INV, INT, MR, STR) = '
+                f'({self.armor}, {self.dexterity}, '
+                f'{self.health}, {self.initiative}, '
+                f'{self.intelligence}, {self.mresistance}, '
+                f'{self.strength})')
     def __init__(self, armor, dexterity, health, initiative,
             intelligence, mresistance, strength):
         self.armor = armor
