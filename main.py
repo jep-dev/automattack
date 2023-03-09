@@ -49,7 +49,7 @@ def main():
                 print(f'  {item} missed {post}')
         else:
             break
-        cleanup(l, r)
+        #cleanup(l, r)
         sleep(3)
         print("")
 
