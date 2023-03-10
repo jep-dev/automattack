@@ -44,13 +44,13 @@ def retarget(src, dest):
         src.target = d
         return True
 
-def cleanup(lhs, rhs):
+def cleanup(lhs, rhs, back = []):
     out = True
     i = 0
     while(i < len(lhs)):
         l = lhs[i]
         if((l == None) or dead(l)):
-            lhs.pop(i)
+            back.append(lhs.pop(i))
             continue
         if(not retarget(l, rhs)):
             out = False
@@ -59,7 +59,7 @@ def cleanup(lhs, rhs):
     while(j < len(rhs)):
         r = rhs[j]
         if((r == None) or dead(r)):
-            rhs.pop(j)
+            back.append(rhs.pop(j))
             continue
         if(not retarget(r, lhs)):
             out = False
