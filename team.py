@@ -21,3 +21,7 @@ class Team:
             return front = v
         else:
             return back = v
+    def shelf(self, i):
+        return self.back.append(self.front.pop(i))
+    def unshelf(self, i):
+        return self.front.append(self.back.pop(i))
