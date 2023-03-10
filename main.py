@@ -21,7 +21,10 @@ def main():
         section, item = init
         if(section == 0):
             pre = item.target
-            if(pre == None or dead(pre)):
+            if(item == pre):
+                item.target = None
+                pre = item.target
+            if(item.target == None or dead(item.target)):
                 if(not retarget(item, r)):
                     break
             post = item.target
@@ -35,8 +38,11 @@ def main():
                 print(f'  {item} missed {post}')
         elif(section == 1):
             pre = item.target
+            if(item == pre):
+                item.target = None
+                pre = item.target
             if(pre == None or dead(pre)):
-                if(not retarget(item, r)):
+                if(not retarget(item, l)):
                     break
             post = item.target
             d = damage(item)
@@ -49,7 +55,7 @@ def main():
                 print(f'  {item} missed {post}')
         else:
             break
-        #cleanup(l, r)
+        cleanup(l, r)
         sleep(3)
         print("")
 
