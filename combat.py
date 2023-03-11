@@ -23,86 +23,161 @@ def dead(c):
 def alive(c):
     return not dead(c)
 
-def retarget(src, dest):
-    n = 0
-    live = []
+def retarget(i, j, front, back):
+    mt = len(front)
+    mb = len(back)
+    m = max(mt, mb)
+    dm = max(m-mt, m-mb)
+    for k in range(dm):
+        if(mt < mb):
+            front.append([])
+        elif(mt > mb):
+            back.append([])
+
+    life = []
+    death = []
+
+    print(f'(i={i}, j={j}, mt={mt}, mb={mb})')
+    srcs = front[i]
+    src = srcs[j]
     target = src.target
-    if(target != None):
+    if(target == src):
+        src.target = None
+    if(target != None and alive(target)):
         if(alive(target)):
             return True
-    for d in dest:
-        if(d != None and alive(d)):
-            live.append(d)
-            n = n + 1
 
-    if(n == 0):
-        src.target = None
+    for k in range(m):
+        if(i == k):
+            continue
+        fk = front[k]
+        bk = back[k]
+        for l in range(len(fk)):
+            fkl = fk[l]
+            if(fkl == None):
+                continue
+            if(alive(fkl)):
+                life.append([k,l])
+                continue
+            death.append([k,l])
+
+    nlife = len(life)
+    if(nlife < 1):
         return False
-    else:
-        i = randint(0, n-1)
-        d = dest[i]
-        src.target = d
-        return True
+    rng = randint(0, nlife-1)
+    k,l = life[rng]
+    src.target = front[k][l]
+    return True
 
-def cleanup(lhs, rhs, back = []):
-    out = True
+
+def cleanup(front, back):
+    m = len(front)
+    n = len(back)
+
+    while(m > n):
+        back.append([])
+        n = n + 1
+    while(n > m):
+        front.append([])
+        m = m + 1
+    if(m < 2):
+        return False
+
     i = 0
-    while(i < len(lhs)):
-        l = lhs[i]
-        if((l == None) or dead(l)):
-            back.append(lhs.pop(i))
-            continue
-        if(not retarget(l, rhs)):
-            out = False
+    while(i < m):
+        ti = front[i]
+        bi = back[i]
+        nt = len(ti)
+        nb = len(bi)
+        j = 0
+        while(j < nt):
+            tij = ti[j]
+            if(tij == None):
+                ti.pop(j)
+                nt = nt - 1
+            elif(alive(tij)):
+                j = j + 1
+                continue
+            bi.append(ti.pop(j))
+            nb = nb + 1
+            nt = nt - 1
+        j = 0
+        while(j < nb):
+            bij = bi[j]
+            if(bij == None):
+                bi.pop(j)
+                nb = nb - 1
+            elif(alive(bij)):
+                ti.append(bi.pop(j))
+                nt = nt + 1
+                nb = nb - 1
+                continue
+            j = j + 1
         i = i + 1
-    j = 0
-    while(j < len(rhs)):
-        r = rhs[j]
-        if((r == None) or dead(r)):
-            back.append(rhs.pop(j))
-            continue
-        if(not retarget(r, lhs)):
-            out = False
-        j = j+1
-    return out
+    i = 0
+    while(i < m):
+        ti = front[i]
+        bi = back[i]
+        out = True
+        for k in range(len(ti)):
+            if(not retarget(i, k, front, back)):
+                out = False
+        if(not out):
+            found = False
+            print(f'\nTeam {i} (', end='')
+            for tij in ti:
+                if(found):
+                    print('', end=', ')
+                found = True
+                print(f'{str(tij)}', end='')
+            print(') won!')
+            found = False
+            if(len(bi) > 0):
+                print('Killed in action: ', end='')
+                for bij in bi:
+                    if(found):
+                        print('', end=', ')
+                    found = True
+                    print(f'{str(bij)}', end='')
+            else:
+                print(f'  No casualties reported.')
+            return False
+        i = i + 1
+    return True
 
-
-def initiator(lhs, rhs):
+def initiator(front, back):
     #cleanup(lhs, rhs)
     #if(not cleanup(lhs, rhs)):
     #    return ()
 
-    m = 0
-    for x in lhs:
-        if(alive(x)):
-            m = m + max(0, x.stats.INV)
+    n = 0     # Number of front
+    total = 0 # Sum of INV
+    totals = []
+    for t in front:
+        mt = 0
+        for ti in t:
+            if(ti != None and alive(ti)):
+                mt = mt + max(0, ti.stats.INV)
+        totals.append(mt)
+        total = total + mt
+        n = n + 1
 
-    n = 0
-    for y in rhs:
-        if(alive(y)):
-            n = n + max(0, y.stats.INV)
+    p = random() * total
 
-    p = random() * (m + n)
-
-    for x in lhs:
-        if(dead(x)):
-            pass
-        k = max(0, x.stats.INV)
-        p = p - k
-        if(p <= 0):
-            return (0, x)
-
-    for y in rhs:
-        if(dead(y)):
-            pass
-        k = max(0, y.stats.INV)
-        p = p - k
-        if(p <= 0):
-            return (1, y)
-
-    return ()
-
-
+    i = 0
+    partial = 0
+    for t in front:
+        j = 0
+        partial = totals[i]
+        for ti in t:
+            if(ti != None and alive(ti)):
+                inv = max(0, ti.stats.INV)
+                partial = partial - inv
+                if(partial <= 0):
+                    return [i, j]
+                j = j + 1
+        i = i + 1
+    return [-1, -1]
 
 def damage(src):
     s = src.stats

@@ -8,55 +8,44 @@ __version__ = "0.0.1"
 __license__ = "GNU General Public License 3.0"
 
 def main():
-    l = [Human("Finn"), Human("Lynn"), Human("Flynn")]
-    r = [Orc("Borc"), Orc("Dorc"), Orc("Morc")]
+    front = [[Human("Finn"), Human("Lynn"), Human("Flynn")], \
+            [Orc("Dorc"), Orc("Morc"), Orc("Porc")],
+            [Elf("Shelf")]]
+    back = [[], [], []]
 
     k = -1
     while(True):
-        init = initiator(l, r)
-        if(len(init) != 2):
-            break
         d = 0
         z = 0
-        section, item = init
-        if(section == 0):
-            pre = item.target
-            if(item == pre):
-                item.target = None
-                pre = item.target
-            if(item.target == None or dead(item.target)):
-                if(not retarget(item, r)):
-                    break
-            post = item.target
-            d = damage(item)
-            if(d > 0):
-                print(f'  {item} hit',
-                        f'{post} for {d:.2f} damage')
-                if(dead(post)):
-                    print(f'  {post} is dead')
-            else:
-                print(f'  {item} missed {post}')
-        elif(section == 1):
-            pre = item.target
-            if(item == pre):
-                item.target = None
-                pre = item.target
-            if(pre == None or dead(pre)):
-                if(not retarget(item, l)):
-                    break
-            post = item.target
-            d = damage(item)
-            if(d > 0):
-                print(f'  {item} hit',
-                        f'{post} for {d:.2f} damage')
-                if(dead(post)):
-                    print(f'  {post} is dead')
-            else:
-                print(f'  {item} missed {post}')
-        else:
+        init = initiator(front, back)
+        if(len(init) != 2):
             break
-        cleanup(l, r)
-        sleep(3)
+        i, j = init
+        if(i < 0 or j < 0):
+            break
+        if(i >= len(front) or j >= len(front[i])):
+            break
+
+        item = front[i][j]
+        pre = item.target
+        if(item == pre):
+            item.target = None
+            pre = item.target
+        if(item.target == None or not alive(item.target)):
+            if(not retarget(i, j, front, back)):
+                break
+        post = item.target
+        d = damage(item)
+        if(d > 0):
+            print(f'  {item} hit',
+                    f'{post} for {d:.2f} damage')
+            if(dead(post)):
+                print(f'  {post} is dead')
+        else:
+            print(f'  {item} missed {post}')
+
+        cleanup(front, back)
+        sleep(.33)
         print("")
 
     input("Done. ")
