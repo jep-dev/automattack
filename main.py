@@ -10,7 +10,7 @@ __license__ = "GNU General Public License 3.0"
 def main():
     front = [[Human("Finn"), Human("Lynn"), Human("Flynn")], \
             [Orc("Dorc"), Orc("Morc"), Orc("Porc")],
-            [Elf("Shelf")]]
+            [Elf("Shelf"), Elf("Self")]]
     back = [[], [], []]
 
     k = -1
@@ -45,7 +45,7 @@ def main():
             print(f'  {item} missed {post}')
 
         cleanup(front, back)
-        sleep(.33)
+        sleep(2)
         print("")
 
     input("Done. ")
