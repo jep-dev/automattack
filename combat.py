@@ -37,7 +37,7 @@ def retarget(i, j, front, back):
     life = []
     death = []
 
-    print(f'(i={i}, j={j}, mt={mt}, mb={mb})')
+    #print(f'(i={i}, j={j}, mt={mt}, mb={mb})')
     srcs = front[i]
     src = srcs[j]
     target = src.target
