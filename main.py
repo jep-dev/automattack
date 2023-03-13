@@ -8,10 +8,12 @@ __version__ = "0.0.1"
 __license__ = "GNU General Public License 3.0"
 
 def main():
-    front = [[Human("Finn"), Human("Lynn"), Human("Flynn")], \
+    front = [[Human("Finn"), Human("Lynn"), Human("Flynn")],
             [Orc("Dorc"), Orc("Morc"), Orc("Porc")],
-            [Elf("Shelf"), Elf("Self")]]
+            [Elf("Guelf"), Elf("Shelf"), Elf("Self")],
+    ]
     back = [[], [], []]
+    last = None
 
     k = -1
     while(True):
@@ -27,6 +29,12 @@ def main():
             break
 
         item = front[i][j]
+        if(last == None):
+            last = item
+        elif(last != item):
+            last.stats.INV = last.base_stats.INV
+            print(f'  Reset {last}\'s INV')
+
         pre = item.target
         if(item == pre):
             item.target = None
@@ -43,12 +51,14 @@ def main():
                 print(f'  {post} is dead')
         else:
             print(f'  {item} missed {post}')
+        if(not cleanup(front, back)):
+            print(f'\nCleanup returned false.')
+            break
 
-        cleanup(front, back)
         sleep(2)
         print("")
 
-    input("Done. ")
+    input("\nPress <enter> to quit. ")
     return
 
 if __name__ == "__main__":
