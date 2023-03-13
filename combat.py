@@ -223,9 +223,10 @@ def damage(src):
     print(f'  Damage = {s0:.2f}*{d0:.2f}/20 = {dmg:.2f}')
 
     if(l < p2):
-        s.INV = src.base_stats.INV
-        print(f'    Reset {src}\'s INV to {s.INV:.2f}')
-        return 0
+        #s.INV = src.base_stats.INV
+        #print(f'    Reset {src}\'s INV to {s.INV:.2f}')
+        #return 0
+        pass
     else:
         s.INV = .9 * s.INV
         print(f'    Reduced {src}\'s INV to {s.INV:.2f}')
