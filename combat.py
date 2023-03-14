@@ -5,6 +5,7 @@ from random import random, randint
 
 from util import *
 from char import *
+from timing import *
 
 __author__ = "John Petersen"
 __version__ = "0.0.1"
@@ -37,7 +38,7 @@ def retarget(i, j, front, back):
     life = []
     death = []
 
-    #print(f'(i={i}, j={j}, mt={mt}, mb={mb})')
+    #timed(f'(i={i}, j={j}, mt={mt}, mb={mb})')
     srcs = front[i]
     src = srcs[j]
     target = src.target
@@ -124,23 +125,23 @@ def cleanup(front, back):
                 out = False
         if(not out):
             found = False
-            print(f'\nTeam {i} (', end='')
+            timed(f'\nTeam {i} (', end='')
             for tij in ti:
                 if(found):
-                    print('', end=', ')
+                    timed('', end=', ')
                 found = True
-                print(f'{str(tij)}', end='')
-            print(') won!')
+                timed(f'{str(tij)}', end='')
+            timed(') won!')
             found = False
             if(len(bi) > 0):
-                print('Killed in action: ', end='')
+                timed('Killed in action: ', end='')
                 for bij in bi:
                     if(found):
-                        print('', end=', ')
+                        timed('', end=', ')
                     found = True
-                    print(f'{str(bij)}', end='')
+                    timed(f'{str(bij)}', end='')
             else:
-                print(f'  No casualties reported.')
+                timed(f'  No casualties reported.')
             return False
         i = i + 1
     return True
@@ -205,31 +206,31 @@ def damage(src):
     l = d0 * p0 + i0 * (1 - p0)
     r = a1 * p1 + d1 * (1 - p1)
 
-    print(f'DEX = {d0:.2f}, INV = {i0:.2f};',
+    timed(f'DEX = {d0:.2f}, INV = {i0:.2f};',
             f'{p0}*DEX + {1-p0}*INV = {l:.2f}')
-    print(f'ARM = {x*20} -> {a1:.2f}, DEX = {d1:.2f}; ' \
+    timed(f'ARM = {x*20} -> {a1:.2f}, DEX = {d1:.2f}; ' \
             f'  {p1:.2f} * {a1:.2f} ' \
             f'+ {1-p1:.2f} * {d1:.2f} = {r:.2f}')
 
     p2 = random()
     p3 = p2 * (l + r)
-    print(f'  {l:.2f} vs. (random()={p2:.2%})',
+    timed(f'  {l:.2f} vs. (random()={p2:.2%})',
             f'* ({l:.2f}+{r:.2f}) = {p3:.2f}')
 
     #dmg = .25 * s0 * d0
     dmg = s0 * d0 / 20.0
-    #print(f'dmg = {str(s0)}*{str(d0)}/20 = {str(dmg)}')
+    #timed(f'dmg = {str(s0)}*{str(d0)}/20 = {str(dmg)}')
 
-    print(f'  Damage = {s0:.2f}*{d0:.2f}/20 = {dmg:.2f}')
+    timed(f'  Damage = {s0:.2f}*{d0:.2f}/20 = {dmg:.2f}')
 
     if(l < p2):
         #s.INV = src.base_stats.INV
-        #print(f'    Reset {src}\'s INV to {s.INV:.2f}')
+        #timed(f'    Reset {src}\'s INV to {s.INV:.2f}')
         #return 0
         pass
     else:
         s.INV = .9 * s.INV
-        print(f'    Reduced {src}\'s INV to {s.INV:.2f}')
+        timed(f'    Reduced {src}\'s INV to {s.INV:.2f}')
 
     if(h1 <= dmg):
         die(dest)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from combat import *
 from time import sleep
+from combat import *
 
 __author__ = "John Petersen"
 __version__ = "0.0.1"
@@ -33,7 +33,7 @@ def main():
             last = item
         elif(last != item):
             last.stats.INV = last.base_stats.INV
-            print(f'  Reset {last}\'s INV')
+            timed(f'  Reset {last}\'s INV')
 
         pre = item.target
         if(item == pre):
@@ -45,18 +45,18 @@ def main():
         post = item.target
         d = damage(item)
         if(d > 0):
-            print(f'  {item} hit',
+            timed(f'  {item} hit',
                     f'{post} for {d:.2f} damage')
             if(dead(post)):
-                print(f'  {post} is dead')
+                timed(f'  {post} is dead')
         else:
-            print(f'  {item} missed {post}')
+            timed(f'  {item} missed {post}')
         if(not cleanup(front, back)):
-            print(f'\nCleanup returned false.')
+            timed(f'\nCleanup returned false.')
             break
 
-        sleep(2)
-        print("")
+        sleep(4)
+        timed("")
 
     input("\nPress <enter> to quit. ")
     return
