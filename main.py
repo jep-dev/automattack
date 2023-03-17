@@ -25,7 +25,7 @@ def main():
     front = [#[Human("Finn"), Human("Lynn"), Human("Flynn")],
             #[Orc("Dorc"), Orc("Morc"), Orc("Porc")],
             #[Elf("Guelf"), Elf("Shelf"), Elf("Self")],
-            [Orc("Finn")], [Human("Porc")], [Elf("Shelf")]
+            [Human("Finn")], [Orc("Porc")], [Elf("Shelf")]
     ]
     back = []
     last = None
