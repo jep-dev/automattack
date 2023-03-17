@@ -2,18 +2,32 @@
 
 from time import sleep
 from combat import *
+import random
+import sys
 
 __author__ = "John Petersen"
 __version__ = "0.0.1"
 __license__ = "GNU General Public License 3.0"
 
 def main():
+    args = sys.argv
+
+    seed = -1
+    seeded = False
+    if(len(args) == 2):
+        seed = int(args[1])
+        seeded = True
+    if(seeded):
+        random.seed(seed)
+
+    timed(f'Seeded={seeded}, seed={seed}\n')
+
     front = [#[Human("Finn"), Human("Lynn"), Human("Flynn")],
             #[Orc("Dorc"), Orc("Morc"), Orc("Porc")],
             #[Elf("Guelf"), Elf("Shelf"), Elf("Self")],
-            [Human("Finn")], [Orc("Porc")], [Elf("Shelf")]
+            [Orc("Finn")], [Human("Porc")], [Elf("Shelf")]
     ]
-    back = [[], [], []]
+    back = []
     last = None
 
     k = -1

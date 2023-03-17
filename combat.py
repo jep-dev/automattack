@@ -45,8 +45,7 @@ def retarget(i, j, front, back):
     if(target == src):
         src.target = None
     if(target != None and alive(target)):
-        if(alive(target)):
-            return True
+        return True
 
     for k in range(m):
         if(i == k):
@@ -130,7 +129,7 @@ def cleanup(front, back):
                 if(found):
                     timed('', end=', ')
                 found = True
-                timed(f'{str(tij)}', end='')
+                timed(f'{tij}', end='')
             timed(') won!')
             found = False
             if(len(bi) > 0):
@@ -139,7 +138,7 @@ def cleanup(front, back):
                     if(found):
                         timed('', end=', ')
                     found = True
-                    timed(f'{str(bij)}', end='')
+                    timed(f'{bij}', end='')
             else:
                 timed(f'  No casualties reported.')
             return False
