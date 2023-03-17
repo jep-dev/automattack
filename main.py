@@ -8,9 +8,10 @@ __version__ = "0.0.1"
 __license__ = "GNU General Public License 3.0"
 
 def main():
-    front = [[Human("Finn"), Human("Lynn"), Human("Flynn")],
-            [Orc("Dorc"), Orc("Morc"), Orc("Porc")],
-            [Elf("Guelf"), Elf("Shelf"), Elf("Self")],
+    front = [#[Human("Finn"), Human("Lynn"), Human("Flynn")],
+            #[Orc("Dorc"), Orc("Morc"), Orc("Porc")],
+            #[Elf("Guelf"), Elf("Shelf"), Elf("Self")],
+            [Human("Finn")], [Orc("Porc")], [Elf("Shelf")]
     ]
     back = [[], [], []]
     last = None
