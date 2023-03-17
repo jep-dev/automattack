@@ -9,4 +9,4 @@ __license__ = "GNU General Public License 3.0"
 
 def timed(*objs, sep=' ', end='\n', file=stdout, flush=False):
     print(*objs, sep=sep, end=end, file=file, flush=flush)
-    sleep(.1)
+    sleep(1.5)
