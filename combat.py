@@ -162,7 +162,8 @@ def initiator(front, back):
         total = total + mt
         n = n + 1
 
-    p = random() * total
+    p = random()
+    totals = [t*1.0/total for t in totals]
 
     i = 0
     partial = 0
@@ -173,11 +174,15 @@ def initiator(front, back):
             if(ti != None and alive(ti)):
                 inv = max(0, ti.stats.INV)
                 partial = partial - inv
-                if(partial <= 0):
+                if(partial < 0):
                     return [i, j]
                 j = j + 1
         i = i + 1
     return [-1, -1]
+
+def evade(src):
+    arm = src.stats.ARM/20.0
+    timed(f'ARM={src.stats.ARM} -> {nkd:.2%}')
 
 def damage(src):
     s = src.stats
