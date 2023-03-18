@@ -186,6 +186,10 @@ def evade(dest):
     nkd = 1-arm
     return False # TODO
 
+def compare(src, dest, **kwargs):
+    timed(f'    {src} with {src.stats}', **kwargs)
+    timed(f'vs. {dest} with {dest.stats}', **kwargs)
+
 def damage(src):
     s = src.stats
     dest = src.target
@@ -212,22 +216,22 @@ def damage(src):
     l = d0 * p0 + i0 * (1 - p0)
     r = a1 * p1 + d1 * (1 - p1)
 
-    timed(f'DEX = {d0:.2f}, INV = {i0:.2f};',
-            f'{p0}*DEX + {1-p0}*INV = {l:.2f}')
-    timed(f'ARM = {x*20} -> {a1:.2f}, DEX = {d1:.2f}; ' \
-            f'  {p1:.2f} * {a1:.2f} ' \
-            f'+ {1-p1:.2f} * {d1:.2f} = {r:.2f}')
+    timed(f'DEX = {d0:.1f}, INV = {i0:.1f};',
+            f'{p0}*DEX + {1-p0}*INV = {l:.1f}')
+    timed(f'ARM = {x*20} -> {a1:.1f}, DEX = {d1:.1f}; ' \
+            f'  {p1:.1f} * {a1:.1f} ' \
+            f'+ {1-p1:.1f} * {d1:.1f} = {r:.1f}')
 
     p2 = random()
     p3 = p2 * (l + r)
-    timed(f'  {l:.2f} vs. (random()={p2:.2%})',
-            f'* ({l:.2f}+{r:.2f}) = {p3:.2f}')
+    timed(f'  {l:.1f} vs. (random()={p2:.2%})',
+            f'* ({l:.1f}+{r:.1f}) = {p3:.1f}')
 
     #dmg = .25 * s0 * d0
     dmg = s0 * d0 / 20.0
     #timed(f'dmg = {str(s0)}*{str(d0)}/20 = {str(dmg)}')
 
-    timed(f'  Damage = {s0:.2f}*{d0:.2f}/20 = {dmg:.2f}')
+    timed(f'  Damage = {s0:.1f}*{d0:.1f}/20 = {dmg:.1f}')
 
     if(l < p2):
         #s.INV = src.base_stats.INV
@@ -236,7 +240,7 @@ def damage(src):
         pass
     else:
         s.INV = .9 * s.INV
-        timed(f'    Reduced {src}\'s INV to {s.INV:.2f}')
+        timed(f'    Reduced {src}\'s INV to {s.INV:.1f}')
 
     if(h1 <= dmg):
         die(dest)

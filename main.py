@@ -25,7 +25,7 @@ def main():
     front = [[Human("Finn"), Human("Lynn"), Human("Flynn")],
             [Orc("Dorc"), Orc("Morc"), Orc("Porc")],
             [Elf("Guelf"), Elf("Shelf"), Elf("Self")],
-            #[Human("Finn")], [Orc("Porc")], [Elf("Shelf")]
+            [Goblin("Grog"), Goblin("Flog"), Goblin("Blog")]
     ]
     back = []
     last = None
@@ -64,7 +64,7 @@ def main():
             d = damage(item)
         if(d > 0):
             timed(f'  {item} hit',
-                    f'{post} for {d:.2f} damage')
+                    f'{post} for {d:.1f} damage')
             if(dead(post)):
                 timed(f'  {post} is dead')
         else:
@@ -73,6 +73,7 @@ def main():
             #timed(f'\nCleanup returned false.')
             break
 
+        last = item
         timed("")
         midsleep()
 
