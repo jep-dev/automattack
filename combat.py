@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from math import sqrt
+from math import sqrt, cos, sin, tan, acos, asin, atan2
 from random import random, randint
 
 from util import *
@@ -124,12 +124,12 @@ def cleanup(front, back):
                 out = False
         if(not out):
             found = False
-            timed(f'\nTeam {i} (', end='')
+            print(f'\nTeam {i} (', end='')
             for tij in ti:
                 if(found):
-                    timed('', end=', ')
+                    print('', end=', ')
                 found = True
-                timed(f'{tij}', end='')
+                print(f'{tij}', end='')
             timed(') won!')
             found = False
             if(len(bi) > 0):
@@ -153,36 +153,38 @@ def initiator(front, back):
     n = 0     # Number of front
     total = 0 # Sum of INV
     totals = []
-    for t in front:
+    for ti in front:
         mt = 0
-        for ti in t:
-            if(ti != None and alive(ti)):
-                mt = mt + max(0, ti.stats.INV)
+        for tij in ti:
+            if(tij != None and alive(tij)):
+                dm = max(0, tij.stats.INV)
+                #print(f'# {tij} has INV = {dm}')
+                mt = mt + dm
         totals.append(mt)
         total = total + mt
         n = n + 1
 
-    p = random()
-    totals = [t*1.0/total for t in totals]
+    #p = random()*total
 
     i = 0
-    partial = 0
-    for t in front:
+    partial = random() * total
+    #partial = partial * total
+    for ti in front:
         j = 0
-        partial = totals[i]
-        for ti in t:
-            if(ti != None and alive(ti)):
-                inv = max(0, ti.stats.INV)
-                partial = partial - inv
-                if(partial < 0):
+        for tij in ti:
+            if(tij != None and alive(tij)):
+                inv = max(0, tij.stats.INV)
+                if(partial <= inv):
                     return [i, j]
+                partial = partial - inv
                 j = j + 1
         i = i + 1
     return [-1, -1]
 
-def evade(src):
-    arm = src.stats.ARM/20.0
-    timed(f'ARM={src.stats.ARM} -> {nkd:.2%}')
+def evade(dest):
+    arm = max(0, dest.stats.ARM)/20.0
+    nkd = 1-arm
+    return False # TODO
 
 def damage(src):
     s = src.stats

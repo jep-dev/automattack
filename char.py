@@ -16,14 +16,11 @@ class Stats:
     MR = 0
     STR = 0
     def __str__(self):
-        return (f'(ARM, DEX, HP, INV, INT, MR, STR) = ' \
-                f'({self.ARM:.2f}, ' \
-                f'{self.DEX:.2f}, ' \
-                f'{self.HP:.2f}, ' \
-                f'{self.INV:.2f}, ' \
-                f'{self.INT:.2f}, ' \
-                f'{self.MR:.2f}, ' \
-                f'{self.STR:.2f})')
+        return (#f'(ARM, DEX, HP, INV, INT, MR, STR) = '
+                f'Stats({self.ARM:.1f}, {self.DEX:.1f}, ' \
+                f'{self.HP:.1f}, {self.INV:.1f}, ' \
+                f'{self.INT:.1f}, {self.MR:.1f}, ' \
+                f'{self.STR:.1f})')
     def __init__(self, ARM, DEX, HP, INV, INT, MR, STR):
         self.ARM = ARM
         self.DEX = DEX
@@ -35,7 +32,7 @@ class Stats:
 
 class Char:
     name = "Greg"
-    species = "base"
+    kin = "base"
 
     base_stats = None
     stats = None
@@ -43,15 +40,15 @@ class Char:
     target = None
 
     def __str__(self):
-        return f'{self.name} the {self.species}'
-    def __init__(self, name, species, stats):
+        return f'{self.name} the {self.kin}'
+    def __init__(self, name, kin, stats):
         self.name = name
-        self.species = species
+        self.kin = kin
         self.base_stats = deepcopy(stats)
         self.stats = stats
 
 class Human(Char):
-    def __init__(self, name):
+    def __init__(self, name, living=True):
         super().__init__(name, "human", Stats(
             4, 10, 10, 10, 10, 10, 10))
 
@@ -65,3 +62,7 @@ class Elf(Char):
         super().__init__(name, "elf", Stats(
             4, 10, 10, 9, 10, 12, 9))
 
+class Goblin(Char):
+    def __init__(self, name):
+        super().__init__(name, "goblin", Stats(
+            3, 12, 4, 11, 7, 9, 9))

@@ -9,19 +9,17 @@ __license__ = "GNU General Public License 3.0"
 
 
 class Team:
-    front = [] # living & undead
-    back = [] # dead
-    def __getitem__(self, k):
-        if(k==0):
-            return front
-        else:
-            return back
-    def __setitem__(self, k, v):
-        if(k==0):
-            return front = v
-        else:
-            return back = v
-    def shelf(self, i):
-        return self.back.append(self.front.pop(i))
-    def unshelf(self, i):
-        return self.front.append(self.back.pop(i))
+    life = []
+    death = []
+
+    def append(self, elem):
+        if(elem == None or not alive(elem)):
+            death.append(elem)
+            return self
+        life.append(elem)
+        return self
+
+    def store(self, i):
+        return self.death.append(self.life.pop(i))
+    def load(self, i):
+        return self.life.append(self.death.pop(i))

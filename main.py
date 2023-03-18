@@ -22,10 +22,10 @@ def main():
 
     timed(f'Seeded={seeded}, seed={seed}\n')
 
-    front = [#[Human("Finn"), Human("Lynn"), Human("Flynn")],
-            #[Orc("Dorc"), Orc("Morc"), Orc("Porc")],
-            #[Elf("Guelf"), Elf("Shelf"), Elf("Self")],
-            [Human("Finn")], [Orc("Porc")], [Elf("Shelf")]
+    front = [[Human("Finn"), Human("Lynn"), Human("Flynn")],
+            [Orc("Dorc"), Orc("Morc"), Orc("Porc")],
+            [Elf("Guelf"), Elf("Shelf"), Elf("Self")],
+            #[Human("Finn")], [Orc("Porc")], [Elf("Shelf")]
     ]
     back = []
     last = None
@@ -58,7 +58,10 @@ def main():
             if(not retarget(i, j, front, back)):
                 break
         post = item.target
-        d = damage(item)
+        if(evade(post)):
+            timed(f'  {item} swung, but {post} evaded')
+        else:
+            d = damage(item)
         if(d > 0):
             timed(f'  {item} hit',
                     f'{post} for {d:.2f} damage')
@@ -67,11 +70,11 @@ def main():
         else:
             timed(f'  {item} missed {post}')
         if(not cleanup(front, back)):
-            timed(f'\nCleanup returned false.')
+            #timed(f'\nCleanup returned false.')
             break
 
-        sleep(4)
         timed("")
+        midsleep()
 
     input("\nPress <enter> to quit. ")
     return
