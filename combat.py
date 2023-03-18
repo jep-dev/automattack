@@ -17,6 +17,7 @@ def die(c):
     s.INV = 0.0
     s.INT = 0.0
     c.target = None
+    c.died = True
 
 def dead(c):
     s = c.stats
@@ -183,8 +184,11 @@ def initiator(front, back):
 
 def evade(dest):
     arm = max(0, dest.stats.ARM)/20.0
-    nkd = 1-arm
-    return False # TODO
+    arm = sqrt(arm*(arm+2)/3)
+    if(random() < arm):
+        timed(f'  {dest} dodged!')
+        return True
+    return False
 
 def compare(src, dest, **kwargs):
     timed(f'    {src} with {src.stats}', **kwargs)

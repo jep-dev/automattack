@@ -33,6 +33,7 @@ class Stats:
 class Char:
     name = "Greg"
     kin = "base"
+    died = False
 
     base_stats = None
     stats = None
@@ -48,7 +49,7 @@ class Char:
         self.stats = stats
 
 class Human(Char):
-    def __init__(self, name, living=True):
+    def __init__(self, name):
         super().__init__(name, "human", Stats(
             4, 10, 10, 10, 10, 10, 10))
 

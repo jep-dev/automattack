@@ -23,3 +23,11 @@ class Team:
         return self.death.append(self.life.pop(i))
     def load(self, i):
         return self.life.append(self.death.pop(i))
+    def empty(self):
+        return len(life) == 0
+    def __init__(self, *args):
+        for arg in args:
+            if arg == None or not alive(arg):
+                death.append(arg)
+            else:
+                life.append(arg)
