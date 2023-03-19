@@ -22,16 +22,16 @@ def main():
 
     timed(f'Seeded={seeded}, seed={seed}\n')
 
-    front = [[Human("Finn"), Human("Lynn"), Human("Flynn")],
-            [Orc("Dorc"), Orc("Morc"), Orc("Porc")],
-            [Elf("Guelf"), Elf("Shelf"), Elf("Self")],
-            [Goblin("Grog"), Goblin("Flog"), Goblin("Blog")]
-    ]
-    back = []
+    G = Group
+    front = G(G(Elf("Guelf"), Elf("Shelf"), Elf("Self")),
+            G(Goblin("Grog"), Goblin("Flog"), Goblin("Blog")),
+            G(Human("Finn"), Human("Lynn"), Human("Flynn")),
+            G(Orc("Dorc"), Orc("Morc"), Orc("Porc")))
+    back = G()
     last = None
 
     k = -1
-    while(True):
+    while(cleanup(front, back)):
         d = 0
         z = 0
         init = initiator(front, back)
@@ -69,9 +69,6 @@ def main():
                 timed(f'  {post} is dead')
         else:
             timed(f'  {item} missed {post}')
-        if(not cleanup(front, back)):
-            #timed(f'\nCleanup returned false.')
-            break
 
         last = item
         timed("")
