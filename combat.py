@@ -5,25 +5,12 @@ from random import random, randint
 
 from util import *
 from char import *
+from team import *
 from timing import *
 
 __author__ = "John Petersen"
 __version__ = "0.0.1"
 __license__ = "GNU General Public License 3.0"
-
-def dead(c):
-    if(issubclass(type(c), Char)):
-        s = c.stats
-        return (s.HP <= 0) or (s.INT <= 0)
-    if(subclass(type(c), list)):
-        for ci in c:
-            if(alive(ci)):
-                return False
-        return True
-    return True
-
-def alive(c):
-    return not dead(c)
 
 def retarget(i, j, front, back):
     mt = len(front)
@@ -69,7 +56,6 @@ def retarget(i, j, front, back):
     k,l = life[rng]
     src.target = front[k][l]
     return True
-
 
 def cleanup(front, back):
     m = len(front)
