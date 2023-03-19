@@ -54,7 +54,7 @@ def main():
         if(cur == pre):
             cur.target = None
             pre = cur.target
-        if(cur.target == None or not alive(cur.target)):
+        if(dead(cur.target)):
             if(not retarget(i, j, front, back)):
                 break
         post = cur.target
@@ -62,13 +62,13 @@ def main():
             timed(f'  {cur} swung, but {post} evaded')
         else:
             d = damage(cur)
-        if(d > 0):
-            timed(f'  {cur} hit',
-                    f'{post} for {d:.1f} damage')
-            if(dead(post)):
-                timed(f'  {post} is dead')
-        else:
-            timed(f'  {cur} missed {post}')
+            if(d > 0):
+                timed(f'  {cur} hit',
+                        f'{post} for {int(d*100)} damage')
+                if(dead(post)):
+                    timed(f'  {post} is dead')
+            else:
+                timed(f'  {cur} missed {post}')
 
         last = cur
         timed("")
