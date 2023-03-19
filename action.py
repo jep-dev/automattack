@@ -5,20 +5,14 @@ __version__ = "0.0.1"
 __license__ = "GNU General Public License 3.0"
 
 class Damage:
-    MGD = 0 # Magical
-    PCD = 0 # Piercing
-    CRD = 0 # Crushing
-    NTD = 0 # Natural
     def __init__(self, MGD, PCD, CRD, NTD):
-        self.MGD = MGD
-        self.PCD = PCD
-        self.CRD = CRD
-        self.NTD = NTD
+        self.MGD = MGD # Magical
+        self.PCD = PCD # Piercing
+        self.CRD = CRD # Crushing
+        self.NTD = NTD # Natural
 
 class Action:
-    DMG = None
-    SUB = None
-    OBJ = None
-    def __init__(self, DMG = None, SUB = None, OBJ = None):
-        super().__init__(self)
-        self.TYPE = TYPE
+    def __init__(self, SUB = None, OBJ = None, ACT = None):
+        self.SUB = SUB # Subject
+        self.OBJ = OBJ # Object
+        self.ACt = ACT # Action
