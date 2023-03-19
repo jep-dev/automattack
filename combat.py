@@ -174,7 +174,7 @@ def armor(dest):
 
 def evade(dest):
     arm = armor(dest)/20.0
-    if(random() < arm):
+    if(random() < arm/2):
         timed(f'  {dest} dodged!')
         return True
     return False
