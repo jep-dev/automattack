@@ -43,34 +43,34 @@ def main():
         if(i >= len(front) or j >= len(front[i])):
             break
 
-        item = front[i][j]
+        cur = front[i][j]
         if(last == None):
-            last = item
-        elif(last != item):
+            last = cur
+        elif(last != cur):
             last.stats.INV = last.base_stats.INV
             timed(f'  Reset {last}\'s INV')
 
-        pre = item.target
-        if(item == pre):
-            item.target = None
-            pre = item.target
-        if(item.target == None or not alive(item.target)):
+        pre = cur.target
+        if(cur == pre):
+            cur.target = None
+            pre = cur.target
+        if(cur.target == None or not alive(cur.target)):
             if(not retarget(i, j, front, back)):
                 break
-        post = item.target
+        post = cur.target
         if(evade(post)):
-            timed(f'  {item} swung, but {post} evaded')
+            timed(f'  {cur} swung, but {post} evaded')
         else:
-            d = damage(item)
+            d = damage(cur)
         if(d > 0):
-            timed(f'  {item} hit',
+            timed(f'  {cur} hit',
                     f'{post} for {d:.1f} damage')
             if(dead(post)):
                 timed(f'  {post} is dead')
         else:
-            timed(f'  {item} missed {post}')
+            timed(f'  {cur} missed {post}')
 
-        last = item
+        last = cur
         timed("")
         midsleep()
 
