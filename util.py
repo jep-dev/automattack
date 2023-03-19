@@ -9,3 +9,9 @@ def clamp(x, lo = 0, hi = 20):
         return min(max(hi, x), lo)
     return min(max(lo, x), hi)
 
+def isanysubtype(der, *types):
+    for t in types:
+        if(issubtype(der, t)):
+            return True
+    return False
+

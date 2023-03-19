@@ -11,17 +11,17 @@ __author__ = "John Petersen"
 __version__ = "0.0.1"
 __license__ = "GNU General Public License 3.0"
 
-def die(c):
-    s = c.stats
-    s.HP = 0.0
-    s.INV = 0.0
-    s.INT = 0.0
-    c.target = None
-    c.died = True
-
 def dead(c):
-    s = c.stats
-    return (s.HP <= 0) or (s.INT <= 0)
+    if(issubclass(type(c), Char)):
+        s = c.stats
+        return (s.HP <= 0) or (s.INT <= 0)
+    if(subclass(type(c), list)):
+        for ci in c:
+            if(alive(ci)):
+                return False
+        return True
+    return True
+
 def alive(c):
     return not dead(c)
 
@@ -182,9 +182,12 @@ def initiator(front, back):
         i = i + 1
     return [-1, -1]
 
+def armor(dest):
+    arm = clamp(dest.stats.ARM)/20.0
+    return sqrt(arm*(arm+2)/3)*20
+
 def evade(dest):
-    arm = max(0, dest.stats.ARM)/20.0
-    arm = sqrt(arm*(arm+2)/3)
+    arm = armor(dest)/20.0
     if(random() < arm):
         timed(f'  {dest} dodged!')
         return True

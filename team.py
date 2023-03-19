@@ -7,27 +7,32 @@ __author__ = "John Petersen"
 __version__ = "0.0.1"
 __license__ = "GNU General Public License 3.0"
 
+class Group(list):
+    def transform(self, f, *args):
+        return [f(m, *args) for m in members]
+    def filter(self, f, *args):
+        return [m for m in members if f(m, *args)]
+    def filterout(self, f, *args):
+        return [m for m in members if not f(m, *args)]
 
-class Team:
-    life = []
-    death = []
+def chars(c):
+    out = Group()
+    if(issubclass(type(c), list)):
+        for ci in c:
+            out.extend(chars(ci))
+    elif(issubclass(type(c), tuple)):
+        for ci in c:
+            out.extend(chars(ci))
+    #elif(issubclass(type(c), Char)):
+    else:
+        out.append(c)
+    return out
 
-    def append(self, elem):
-        if(elem == None or not alive(elem)):
-            death.append(elem)
-            return self
-        life.append(elem)
-        return self
+def life(g):
+    return [gi for g in chars(g) if gi != None and alive(gi)]
+def death(g):
+    return [gi for g in chars(g) if gi == None or dead(gi)]
 
-    def store(self, i):
-        return self.death.append(self.life.pop(i))
-    def load(self, i):
-        return self.life.append(self.death.pop(i))
-    def empty(self):
-        return len(life) == 0
-    def __init__(self, *args):
-        for arg in args:
-            if arg == None or not alive(arg):
-                death.append(arg)
-            else:
-                life.append(arg)
+
+class Team(Group):
+    pass

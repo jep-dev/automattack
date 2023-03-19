@@ -8,19 +8,6 @@ __version__ = "0.0.1"
 __license__ = "GNU General Public License 3.0"
 
 class Stats:
-    ARM = 0
-    DEX = 0
-    HP = 0
-    INV = 0
-    INT = 0
-    MR = 0
-    STR = 0
-    def __str__(self):
-        return (#f'(ARM, DEX, HP, INV, INT, MR, STR) = '
-                f'Stats({self.ARM:.1f}, {self.DEX:.1f}, ' \
-                f'{self.HP:.1f}, {self.INV:.1f}, ' \
-                f'{self.INT:.1f}, {self.MR:.1f}, ' \
-                f'{self.STR:.1f})')
     def __init__(self, ARM, DEX, HP, INV, INT, MR, STR):
         self.ARM = ARM
         self.DEX = DEX
@@ -35,8 +22,8 @@ class Char:
     kin = "base"
     died = False
 
-    base_stats = None
     stats = None
+    base_stats = None
 
     target = None
 
@@ -45,8 +32,8 @@ class Char:
     def __init__(self, name, kin, stats):
         self.name = name
         self.kin = kin
-        self.base_stats = deepcopy(stats)
         self.stats = stats
+        self.base_stats = deepcopy(self.stats)
 
 class Human(Char):
     def __init__(self, name):
@@ -67,3 +54,19 @@ class Goblin(Char):
     def __init__(self, name):
         super().__init__(name, "goblin", Stats(
             3, 12, 4, 11, 7, 9, 9))
+
+def die(c):
+    t = type(c)
+    if(issubtype(t, Stats)):
+        c.HP = 0
+        c.INV = 0
+    elif(issubtype(t, Char)):
+        die(c.stats)
+        c.target = None
+    elif(isanysubtype(t, list, tuple)):
+        for ci in c:
+            die(ci)
+    else:
+        return False
+    return True
+
