@@ -23,17 +23,15 @@ def main():
     timed(f'Seeded={seeded}, seed={seed}\n')
 
     G = Group
-    front = G(G(Elf("Guelf"), Elf("Shelf"), Elf("Self")),
-            G(Goblin("Grog"), Goblin("Flog"), Goblin("Blog")),
-            G(Human("Finn"), Human("Lynn"), Human("Flynn")),
-            G(Orc("Dorc"), Orc("Morc"), Orc("Porc")))
+    front = G(G(Elf("Shelf")), G(Human("Finn")))
+    #front = G(G(Elf("Guelf"), Elf("Shelf"), Elf("Self")),
+    #        G(Goblin("Grog"), Goblin("Flog"), Goblin("Blog")),
+    #        G(Human("Finn"), Human("Lynn"), Human("Flynn")),
+    #        G(Orc("Dorc"), Orc("Morc"), Orc("Porc")))
     back = G()
     last = None
 
-    k = -1
     while(cleanup(front, back)):
-        d = 0
-        z = 0
         init = initiator(front, back)
         if(len(init) != 2):
             break

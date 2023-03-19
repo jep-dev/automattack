@@ -8,9 +8,9 @@ __version__ = "0.0.1"
 __license__ = "GNU General Public License 3.0"
 
 def shortsleep():
-    sleep(.1)
+    sleep(1.5)
 def midsleep():
-    sleep(.5)
+    sleep(3)
 
 
 def timed(*objs, sep=' ', end='\n', file=stdout, flush=False):

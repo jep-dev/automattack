@@ -12,7 +12,7 @@ class Stats:
             INV=0, INT=0, MR=0, STR=0):
         self.ARM = clamp(4+ARM)
         self.DEX = clamp(10+DEX)
-        self.HP = clamp(10+HP)
+        self.HP = clamp(1000+HP)
         self.INV = clamp(10+INV)
         self.INT = clamp(10+INT)
         self.MR = clamp(10+MR)
@@ -45,12 +45,12 @@ class Orc(Char):
 class Elf(Char):
     def __init__(self, name):
         super().__init__(name, "elf", Stats(
-            1, 1, 1, -1, 0, 2, -1))
+            1, 1, -200, 0, -1, 0, 1))
 
 class Goblin(Char):
     def __init__(self, name):
         super().__init__(name, "goblin", Stats(
-            -1, 2, -6, 1, -3, -1, -1))
+            -1, 2, -600, 1, -3, -1, -3))
 
 def dead(c):
     t = type(c)

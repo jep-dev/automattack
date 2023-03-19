@@ -179,10 +179,6 @@ def evade(dest):
         return True
     return False
 
-def compare(src, dest, **kwargs):
-    timed(f'    {src} with {src.stats}', **kwargs)
-    timed(f'vs. {dest} with {dest.stats}', **kwargs)
-
 def damage(src):
     s = src.stats
     dest = src.target
@@ -220,18 +216,12 @@ def damage(src):
     timed(f'  {l:.1f} vs. (random()={p2:.2%})',
             f'* ({l:.1f}+{r:.1f}) = {p3:.1f}')
 
-    #dmg = .25 * s0 * d0
-    dmg = s0 * d0 / 20.0
+    dmg = s0 * d0 / 20 * 16 / 100
     #timed(f'dmg = {str(s0)}*{str(d0)}/20 = {str(dmg)}')
 
     timed(f'  Damage = {s0:.1f}*{d0:.1f}/20 = {dmg:.1f}')
 
-    if(l < p2):
-        #s.INV = src.base_stats.INV
-        #timed(f'    Reset {src}\'s INV to {s.INV:.2f}')
-        #return 0
-        pass
-    else:
+    if(l >= p2):
         s.INV = .9 * s.INV
         timed(f'    Reduced {src}\'s INV to {s.INV:.1f}')
 
