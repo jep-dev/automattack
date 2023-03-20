@@ -8,15 +8,15 @@ __version__ = "0.0.1"
 __license__ = "GNU General Public License 3.0"
 
 class Stats:
-    def __init__(self, ARM=0, DEX=0, HP=0, \
-            INV=0, INT=0, MR=0, STR=0):
-        self.ARM = 4+clamp(ARM,-4,16)
-        self.DEX = 10+clamp(DEX,-10,10)
-        self.HP = 1000+clamp(HP, -1000, 1000)
-        self.INV = 10+clamp(INV,-10,10)
-        self.INT = 10+clamp(INT,-10,10)
-        self.MR = 10+clamp(MR,-10,10)
-        self.STR = 10+clamp(STR,-10,10)
+    def __init__(self, ARM = 0, DEX = 0, HP = 0, \
+            INV = 0, INT = 0, MR = 0, STR = 0):
+        self.ARM = 4 + clamp(ARM, -4, 16)
+        self.DEX = 10 + clamp(DEX, -10, 10)
+        self.HP = 1000 + clamp(HP, -1000, 1000)
+        self.INV = 10 + clamp(INV, -10, 10)
+        self.INT = 10 + clamp(INT, -10, 10)
+        self.MR = 10 + clamp(MR, -10, 10)
+        self.STR = 10 + clamp(STR, -10, 10)
 
 class Char:
     name = "Greg"
