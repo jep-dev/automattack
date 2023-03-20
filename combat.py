@@ -205,21 +205,23 @@ def damage(src):
     l = d0 * p0 + i0 * (1 - p0)
     r = a1 * p1 + d1 * (1 - p1)
 
-    timed(f'DEX = {d0:.1f}, INV = {i0:.1f};',
-            f'{p0}*DEX + {1-p0}*INV = {l:.1f}')
-    timed(f'ARM = {x*20} -> {a1:.1f}, DEX = {d1:.1f}; ' \
-            f'  {p1:.1f} * {a1:.1f} ' \
-            f'+ {1-p1:.1f} * {d1:.1f} = {r:.1f}')
+    timed(f'DEX = {int(d0)}, INV = {int(i0)};',
+            f'{p0:.2f}*{int(d0)} +',
+            f'{1-p0:.2f}*{int(i0)} = {l:.1f}')
+    timed(f'ARM = {int(d.ARM):2} -> {int(a1):2}, ' \
+            f'DEX = {int(d1):2}; ' \
+            f'{p1:.2f}*{int(a1):2} ' \
+            f'+ {1-p1:.2f}*{int(d1):2} = {r:.1f}')
 
     p2 = random()
     p3 = p2 * (l + r)
-    timed(f'  {l:.1f} vs. (random()={p2:.2%})',
-            f'* ({l:.1f}+{r:.1f}) = {p3:.1f}')
+    timed(f'  {l:.1f} vs. (random()={p2:.2f})' \
+            f'*({l:.1f} + {r:.1f}) = {p3:.1f}')
 
-    dmg = s0 * d0 / 20 * 16 / 100
+    dmg = s0 * d0 * .8
     #timed(f'dmg = {str(s0)}*{str(d0)}/20 = {str(dmg)}')
 
-    timed(f'  Damage = {s0:.1f}*{d0:.1f}/20 = {dmg:.1f}')
+    timed(f'  Damage = 16*{s0:.1f}*{d0:.1f}/20 = {dmg:.1f}')
 
     if(l >= p2):
         s.INV = .9 * s.INV

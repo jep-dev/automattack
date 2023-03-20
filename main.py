@@ -62,9 +62,12 @@ def main():
             d = damage(cur)
             if(d > 0):
                 timed(f'  {cur} hit',
-                        f'{post} for {int(d*100)} damage')
+                        f'{post} for {int(d)} damage')
                 if(dead(post)):
                     timed(f'  {post} is dead')
+                else:
+                    timed(f'  {post} has ' \
+                            f'{int(post.stats.HP)} HP left')
             else:
                 timed(f'  {cur} missed {post}')
 
