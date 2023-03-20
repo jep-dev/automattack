@@ -223,9 +223,11 @@ def damage(src):
 
     timed(f'  Damage = 16*{s0:.1f}*{d0:.1f}/20 = {dmg:.1f}')
 
-    if(l >= p2):
+    if(l >= p3):
         s.INV = .9 * s.INV
         timed(f'    Reduced {src}\'s INV to {s.INV:.1f}')
+    else:
+        dmg = 0
 
     if(h1 <= dmg):
         die(dest)
