@@ -45,7 +45,7 @@ class Orc(Char):
 class Elf(Char):
     def __init__(self, name):
         super().__init__(name, "elf", Stats(
-            1, 1, -200, 0, -1, 0, 1))
+            0, 1, -200, 0, -1, 0, 1))
 
 class Goblin(Char):
     def __init__(self, name):
