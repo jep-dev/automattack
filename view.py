@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+from sdl2 import *
 import sdl2.ext
 from time import sleep
 
@@ -10,7 +11,7 @@ __license__ = "GNU General Public License 3.0"
 
 
 def init():
-    sdl2.ext.init()
+    SDL_Init(SDL_INIT_VIDEO)
     RES = sdl2.ext.Resources(__file__, "share")
     win = sdl2.ext.Window("Title", size=(640,480))
     win.show()
@@ -31,15 +32,16 @@ def run(win):
     return True
 
 def stop(win):
-    win.close()
-    sdl2.ext.quit()
+    SDL_DestroyWindow(win)
+    SDL_Quit()
+    return True
 
 def main():
     args = sys.argv
     res, win, fac, spr = init()
     while(run(win)):
         continue
-    stop(win)
+    return stop(win)
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
