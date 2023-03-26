@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import sys
-from sdl2 import *
 import sdl2.ext
 from time import sleep
 
@@ -11,7 +10,7 @@ __license__ = "GNU General Public License 3.0"
 
 
 def init():
-    SDL_Init(SDL_INIT_VIDEO)
+    sdl2.ext.init()
     RES = sdl2.ext.Resources(__file__, "share")
     win = sdl2.ext.Window("Title", size=(640,480))
     win.show()
@@ -28,12 +27,16 @@ def run(win):
     for ev in evs:
         if ev.type == sdl2.SDL_QUIT:
             return False
+        elif ev.type == sdl2.SDL_MOUSEBUTTONDOWN:
+            print('Mouse click')
+        elif ev.type == sdl2.SDL_MOUSEBUTTONUP:
+            print('Mouse release')
     win.refresh()
     return True
 
 def stop(win):
-    SDL_DestroyWindow(win)
-    SDL_Quit()
+    win.close()
+    sdl2.ext.quit()
     return True
 
 def main():
