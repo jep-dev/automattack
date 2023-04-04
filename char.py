@@ -74,7 +74,7 @@ def die(c):
     elif(issubclass(t, Char)):
         die(c.stats)
         c.target = None
-    elif(isanysubclass(t, list, tuple)):
+    elif(issubclass(t, (list, tuple))):
         for ci in c:
             die(ci)
     else:

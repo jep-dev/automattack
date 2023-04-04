@@ -45,7 +45,7 @@ class Teams:
 #            if(pred(v)):
 #                out[k] = f(v)
 #        return out
-#    if(isanysubclass(C, list, tuple)):
+#    if(issubclass(C, (list, tuple))):
 #        out = C()
 #        for l in lst:
 #            if(pred(l)):
@@ -57,7 +57,7 @@ class Teams:
 def chars(c):
     out = Group()
     t = type(c)
-    if(isanysubclass(t, list, tuple)):
+    if(issubclass(t, (list, tuple))):
         for ci in c:
             out.extend(chars(ci))
     elif(issubclass(t, dict)):
