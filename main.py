@@ -15,9 +15,8 @@ def main():
     seed = -1
     seeded = False
     if(len(args) == 2):
-        seed = int(args[1])
         seeded = True
-    if(seeded):
+        seed = int(args[1])
         random.seed(seed)
 
     timed(f'Seeded={seeded}, seed={seed}\n')
