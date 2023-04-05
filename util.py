@@ -6,6 +6,9 @@ __license__ = "GNU General Public License 3.0"
 
 import math
 import re
+import sys
+
+from numeric import *
 
 def ltcompare(l, r):
     return l < r
@@ -22,38 +25,11 @@ def ispsubclass(l, r):
         return not issubclass(r, l)
     return False
 
-def clamp(x, lo = 0, hi = 1):
-    lo2 = min(lo, hi)
-    hi2 = max(lo, hi)
-    return min(max(lo2, x), hi2)
-
 def trim(src, to = ''):
     return re.sub(r'^\W+|\W+$', to, src)
 
 def compress(src, to = ''):
     return re.sub(r'\W+', to, src)
-
-def atoi(x):
-    try:
-        return int(x)
-    except ValueError:
-        return None
-
-def atof(x):
-    try:
-        return float(x)
-    except ValueError:
-        return None
-
-def aton(src):
-    x = src.lower()
-    x = ''.join(x.split())
-    f = atof(x)
-    if('.' in x):
-        return f
-    if('inf' in x or 'nan' in x):
-        return f
-    return atoi(x)
 
 def test_util():
     isa = lambda x,y : type(x) == y
