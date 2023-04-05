@@ -82,6 +82,9 @@ def test_util():
     return True
 
 if(__name__ == "__main__"):
-    #sys.exit(not test_util())
-    if(not test_util()):
-        sys.exit(1)
+    print('Testing util.py;')
+    if(test_util()):
+        print('Test passed.')
+        sys.exit(0)
+    print('Test failed.')
+    sys.exit(1)

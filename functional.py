@@ -86,10 +86,9 @@ def test_functional():
     return True
 
 if(__name__ == "__main__"):
-    print('Testing functional.py')
-    out = test_functional()
-    if(out):
+    print('Testing functional.py;')
+    if(test_functional()):
         print('Test passed.')
         sys.exit(0)
-    print('Test failed')
-    sys.exit(out)
+    print('Test failed.')
+    sys.exit(1)
