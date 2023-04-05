@@ -2,6 +2,7 @@
 
 from copy import copy, deepcopy
 from util import *
+import importlib
 
 __author__ = "John Petersen"
 __version__ = "0.0.1"
@@ -52,6 +53,10 @@ class Goblin(Char):
         super().__init__(name, "goblin", Stats(
             -1, 2, -600, 1, -3, -1, -3))
 
+def kins():
+    return {"elf": Elf, "goblin": Goblin,
+            "human": Human, "orc": Orc}
+
 def dead(c):
     t = type(c)
     if(issubclass(t, Stats)):
@@ -80,4 +85,22 @@ def die(c):
     else:
         return False
     return True
+
+#def parse(line):
+#    name = line[0]
+#    kin = ""
+#    cls = ""
+#    kin = line[2].lower()
+#    match kin in:
+#        case "elf":
+#            return Elf
+#        case "goblin":
+#            return Goblin
+#        case "human":
+#            out = Human
+#        case "orc":
+#            out = Orc
+#        default:
+#            return None
+
 
