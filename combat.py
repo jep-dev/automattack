@@ -169,7 +169,7 @@ def initiator(front, back):
     return [-1, -1]
 
 def armor(dest):
-    arm = clamp(dest.stats.ARM)/20.0
+    arm = clamp(dest.stats.ARM,0,20)/20.0
     return sqrt(arm*(arm+2)/3)*20
 
 def evade(dest):
@@ -192,15 +192,15 @@ def damage(src):
         return 0
 
     p0 = .6
-    d0 = clamp(s.DEX)
-    i0 = clamp(s.INV)
-    s0 = clamp(s.STR)
+    d0 = clamp(s.DEX, 0, 20)
+    i0 = clamp(s.INV, 0, 20)
+    s0 = clamp(s.STR, 0, 20)
 
     p1 = .75
     x = d.ARM/20.
     a1 = 20*sqrt(x*(x+2)/3)
-    #a1 = clamp(d.ARM)
-    d1 = clamp(d.DEX)
+    #a1 = clamp(d.ARM, 0, 20)
+    d1 = clamp(d.DEX, 0, 20)
 
     l = d0 * p0 + i0 * (1 - p0)
     r = a1 * p1 + d1 * (1 - p1)
