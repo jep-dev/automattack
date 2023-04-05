@@ -44,7 +44,13 @@ def main():
     res, win, fac, spr = init()
     while(run(win)):
         continue
-    return stop(win)
+    stop(win)
+    return 0
 
 if __name__ == "__main__":
-    sys.exit(main())
+    print('Running view.py;')
+    if(main() == 0):
+        print('Run successful.')
+        sys.exit(0)
+    print('Run failed.')
+    sys.exit(1)
