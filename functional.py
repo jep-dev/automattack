@@ -8,28 +8,28 @@ from util import *
 import math
 import sys
 
-def ltransform(f, x, *y):
+def ltransform(f, x, *y, **z):
     t = type(x)
     if(issubclass(t, list)):
-        return [f(xi, *y) for xi in x]
+        return [f(xi, *y, **z) for xi in x]
     elif(issubclass(t, tuple)):
-        return (f(xi, *y) for xi in x)
+        return (f(xi, *y, **z) for xi in x)
     return None
 
-def rtransform(f, x, y, *z):
+def rtransform(f, w, x, *y, **z):
     t = type(y)
     if(issubclass(t, list)):
-        return [f(x, yi, *z) for yi in y]
+        return [f(w, xi, *y, **z) for xi in x]
     elif(issubclass(t, tuple)):
-        return (f(x, yi, *z) for yi in y)
+        return (f(w, xi, *y, **z) for xi in x)
     return None
 
-def ftransform(f, *x):
+def ftransform(f, *x, **y):
     t = type(f)
     if(issubclass(t, list)):
-        return [fi(*x) for fi in f]
+        return [fi(*x, **y) for fi in f]
     elif(issubclass(t, tuple)):
-        return (fi(*x) for fi in f)
+        return (fi(*x, **y) for fi in f)
     return None
 
 def lbind(f, *y, **z):
@@ -83,6 +83,7 @@ def test_functional():
     lv = len(v)
     print(f'V[{lv}] = {v}')
     assert lu + lv == lx
+
     return True
 
 if(__name__ == "__main__"):
