@@ -5,6 +5,7 @@ from random import random, randint
 
 from util import *
 from char import *
+#from functional import *
 from team import *
 from timing import *
 
