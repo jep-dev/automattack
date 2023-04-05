@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 
 from copy import copy, deepcopy
-from util import *
 import importlib
+
+from util import *
+from math import *
+from numeric import *
 
 __author__ = "John Petersen"
 __version__ = "0.0.1"
@@ -57,10 +60,34 @@ def kins():
     return {"elf": Elf, "goblin": Goblin,
             "human": Human, "orc": Orc}
 
+def armor(c, s = 2):
+    t = type(c)
+    if(issubclass(t, Stats)):
+        return hyperbolic(c.ARM, s, 20)
+    if(issubclass(t, Char)):
+        return armor(c.stats, s)
+    return None
+
+def health(c):
+    t = type(c)
+    if(issubclass(t, Stats)):
+        return clamp(c.HP, 0, 1000)
+    if(issubclass(t, Char)):
+        return health(c.stats)
+    return None
+
+def intelligence(c):
+    t = type(c)
+    if(issubclass(t, Stats)):
+        return clamp(c.INT, 0, 20)
+    if(issubclass(t, Char)):
+        return health(c.stats)
+    return None
+
 def dead(c):
     t = type(c)
     if(issubclass(t, Stats)):
-        return c.HP <= 0 or c.INT <= 0
+        return health(c) <= 0 or intelligence(c) <= 0
     if(issubclass(t, Char)):
         return dead(c.stats)
     for ci in c:
@@ -76,15 +103,17 @@ def die(c):
     if(issubclass(t, Stats)):
         c.HP = 0
         c.INV = 0
-    elif(issubclass(t, Char)):
+        return True
+    if(issubclass(t, Char)):
         die(c.stats)
         c.target = None
-    elif(issubclass(t, (list, tuple))):
+        return True
+    if(issubclass(t, (list, tuple))):
         for ci in c:
-            die(ci)
-    else:
-        return False
-    return True
+            if(not die(ci)):
+                return False
+        return True
+    return False
 
 #def parse(line):
 #    name = line[0]
