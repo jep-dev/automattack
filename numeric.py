@@ -33,13 +33,17 @@ def aton(src):
         return f
     return atoi(x)
 
+def progress(i, i0, i1):
+    assert i0 < i1
+    return (i - i0) / float(i1 - i0)
+
 def logistic(x):
     return 1/(1+exp(-x))
 def dlogistic(x):
     y = exp(-x)
     return x*y/pow(1+y, 2)
 def ilogistic(x):
-    return log(exp(x)+1)
+    return log1p(exp(x))
 
 # linear at s=0
 def hyperbolic(x, s = 2, m = 1.0):
