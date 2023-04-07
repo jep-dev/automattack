@@ -25,12 +25,6 @@ def ispsubclass(l, r):
         return not issubclass(r, l)
     return False
 
-def trim(src, to = ''):
-    return re.sub(r'^\W+|\W+$', to, src)
-
-def compress(src, to = ''):
-    return re.sub(r'\W+', to, src)
-
 def test_util():
     isa = lambda x,y : type(x) == y
     isint = lambda x : isa(x, int)
