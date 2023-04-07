@@ -10,6 +10,9 @@ import sys
 
 from numeric import *
 
+def identity(x, *y, **z):
+    return x
+
 def ltcompare(l, r):
     return l < r
 
