@@ -6,6 +6,7 @@ import importlib
 from util import *
 from math import *
 from numeric import *
+from streams import *
 
 __author__ = "John Petersen"
 __version__ = "0.0.1"
@@ -114,22 +115,3 @@ def die(c):
                 return False
         return True
     return False
-
-#def parse(line):
-#    name = line[0]
-#    kin = ""
-#    cls = ""
-#    kin = line[2].lower()
-#    match kin in:
-#        case "elf":
-#            return Elf
-#        case "goblin":
-#            return Goblin
-#        case "human":
-#            out = Human
-#        case "orc":
-#            out = Orc
-#        default:
-#            return None
-
-
