@@ -28,8 +28,8 @@ def noncomment(src):
 def lines(fname, dest = [], pred = yesman, fn = identity):
     f = io.open(fname)
     for l in f:
-        if(pred(l, *y, **z)):
-            dest.append(l)
+        if(pred(l)):
+            dest.append(fn(l))
     f.close()
     return dest
 
@@ -38,12 +38,12 @@ if(__name__ == '__main__'):
     coms = []
     noncoms = []
     fname = 'share/test.txt'
-    lines(fname, coms, iscomment)
-    lines(fname, noncoms, fnot(iscomment))
+    lines(fname, noncoms, yesman, noncomment)
+    #lines(fname, noncoms, fnot(iscomment))
     #
 
-    for line in dest:
+    for line in noncoms:
         i = i + 1
-        print(f'{i}. "{line}"')
+        print(f'{i}. "{line[0:-1]}"')
     sys.exit(0)
 
