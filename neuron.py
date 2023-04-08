@@ -4,28 +4,50 @@ __author__ = "John Petersen"
 __version__ = "0.0.1"
 __license__ = "GNU General Public License 3.0"
 
-from rand import random, randint
+from random import random, randint
+import re
+import sys
 
-def progress(i, i0, i1):
-    assert i0 < i1
-    return (i - i0) / float(i1 - i0)
+from numeric import *
+
+class Neuron:
+    def __init__(self, weights = [], bias = 0):
+        self.weights = [w for w in weights]
+        self.bias = bias
+
+class Synapse:
+    def __init__(self, src, dest):
+        self.src = src
+        self.dest = dest
+
 
 if(__name__ == "__main__"):
-    w,h = [4,3]
-
-    seeded = False
-    seed = -1
-    if(len(argv) > 1):
-        seeded = True
-        seed = int(argv[1])
-        rand.seed(seed)
-
-    print(f'Seeded={seeded}, seed={seed}')
-
-    m = w*h
-    n = m*2
-    img0 = [random() for i in range(m*4)]
-    imgh = [[random() for i in range(m*4)] for j in range(2)]
-    img1 = [0 for i in range(m*4)]
-
-
+    prog = None
+    prev = None
+    src = 'share/test.png'
+    dest = 'share/output.png'
+    rem = []
+    for arg in sys.argv:
+        if(prog == None):
+            prog = arg
+            continue
+        if(prev == None):
+            if(re.match(r'^-', arg) != None):
+                prev = arg
+                continue
+            rem.append(arg)
+            prev = None
+            continue
+        if(prev == '-i'):
+            src = arg
+            prev = None
+            continue
+        if(prev == '-o'):
+            dest = arg
+            prev = None
+            continue
+    print(f'Program: {prog}')
+    print(f'Source: {src}')
+    print(f'Destination: {dest}')
+    print(f'Prev: {prev}')
+    print(f'Remainder: {rem}')
